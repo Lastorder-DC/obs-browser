@@ -33,15 +33,14 @@ void BrowserLoadHandler::OnLoadEnd(CefRefPtr<CefBrowser> browser, CefRefPtr<CefF
 {
 	if (frame->IsMain())
 	{
-		std::string base64EncodedCSS = base64_encode(reinterpret_cast<const unsigned char*>(css.c_str()),css.length());
-		std::string href = "data:text/css;charset=utf-8;base64," + base64EncodedCSS;
+		std::string base64EncodedJS = base64_encode(reinterpret_cast<const unsigned char*>(css.c_str()),css.length());
+		std::string href = "data:text/javascript;charset=utf-8;base64," + base64EncodedJS;
 
 		std::string script = "";
-		script += "var link = document.createElement('link');";
-		script += "link.setAttribute('rel', 'stylesheet');";
-		script += "link.setAttribute('type', 'text/css');";
-		script += "link.setAttribute('href', '" + href + "');";
-		script += "document.getElementsByTagName('head')[0].appendChild(link);";
+		script += "var script_tag = document.createElement('script');";
+		script += "script_tag.setAttribute('type', 'text/javascript');";
+		script += "script_tag.setAttribute('src', '" + href + "');";
+		script += "document.getElementsByTagName('head')[0].appendChild(script_tag);";
 		
 		frame->ExecuteJavaScript(script, href, 0);
 	}
