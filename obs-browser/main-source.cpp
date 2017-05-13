@@ -30,7 +30,7 @@ static void browser_source_get_defaults(obs_data_t *settings)
 	obs_data_set_default_int(settings, "fps", 30);
 	obs_data_set_default_bool(settings, "shutdown", false);
 	obs_data_set_default_bool(settings, "restart_when_active", false);
-	obs_data_set_default_string(settings, "css", "body { background-color: rgba(0, 0, 0, 0); margin: 0px auto; overflow: hidden; }");
+	obs_data_set_default_string(settings, "css", "(function() {})();");
 }
 
 static bool restart_button_clicked(obs_properties_t *props,
@@ -105,7 +105,7 @@ static obs_properties_t *browser_source_get_properties(void *data)
 	obs_properties_add_int(props, "fps",
 			obs_module_text("FPS"), 1, 60, 1);
 	obs_properties_add_text(props, "css",
-		obs_module_text("CSS"), OBS_TEXT_MULTILINE);
+		obs_module_text("JavaScript"), OBS_TEXT_MULTILINE);
 	obs_properties_add_bool(props, "shutdown",
 		obs_module_text("Shutdown source when not visible"));
 	obs_properties_add_bool(props, "restart_when_active",
